@@ -12,13 +12,13 @@ app.use(helmet());
 
 const rateLimit = require('express-rate-limit');
 app.use(rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
+  windowMs: 5 * 60 * 1000, // 5 minutes
   max: 10 // limit each IP to 5 requests per windowMs
 }));
 
 app.get('/', function (req, res) {
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.send(`CoinMarketCap Cached-Api<br />Prices: update every 30min<br />List 200 first digital assets by marketcap<br />Rate Limit: 5 requests every 15min<br />Created by: Kelgors<br /><br />Route: <a href="/quotes/latest">/quotes/latest</a>`);
+  res.send(`CoinMarketCap Cached-Api<br />Prices: update every 30min<br />List 200 first digital assets by marketcap<br />Rate Limit: 10 requests every 5min<br />Available format: csv,json<br />Created by: Kelgors<br /><br />Route: <a href="/quotes/latest.json">/quotes/latest.json</a>`);
   res.end();
 });
 
