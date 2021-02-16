@@ -8,7 +8,7 @@ knex('quotes').select('symbol')
   })
   .then(function (symbols) {
     // fetch
-    return axios.get('https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest', {
+    return axios.get('https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest', {
       params: {
         symbol: symbols,
         convert: 'USD',
