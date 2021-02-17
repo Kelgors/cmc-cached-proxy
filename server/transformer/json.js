@@ -6,8 +6,9 @@ module.exports = {
       DECIMAL_NUMBERS.forEach(function (field) {
         row[field] = Number(row[field]);
       });
+      row.icon = `https://s2.coinmarketcap.com/static/img/coins/64x64/${row.id}.png`;
       return row;
-    })
+    });
     return JSON.stringify(rows, null, 2);
   }
 };
