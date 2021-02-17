@@ -2,16 +2,16 @@ const knex = require('knex')(require('../knexfile'));
 const axios = require('axios');
 const OUTPUT_CURRENCY = 'USD';
 
-knex('quotes').select('symbol')
+knex('quotes').select('id')
   .then(function (rows) {
-    return rows.map(({ symbol }) => symbol).join(',');
+    return rows.map(({ id }) => id).join(',');
   })
-  .then(function (symbols) {
+  .then(function (ids) {
     // fetch
     console.info('Fetching quotes');
     return axios.get('https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest', {
       params: {
-        symbol: symbols,
+        id: ids,
         convert: 'USD',
         skip_invalid: true,
       },
@@ -34,7 +34,7 @@ knex('quotes').select('symbol')
     });
   })
   .then(function (quotes) {
-    console.info('Inserting quotes');
+    console.info(`Inserting ${quotes.length} quotes`);
     return knex('quotes').insert(quotes)
       .onConflict('id')
       .merge();
