@@ -19,6 +19,7 @@ app.get('/', function (req, res) {
 Prices: update every 30min<br />
 Rate Limit: 10 requests every 5min<br />
 Available format: csv,json<br />
+<a href="https://github.com/Kelgors/cmc-cached-proxy" target="_blank" rel="noopener noreferrer">GitHub</a>
 Created by: Kelgors<br /><br />
 API Quotes: <a href="/quotes/latest.json">/quotes/latest.json</a><br /><br />
 <h3>Coin list (${rows.length})</h3>

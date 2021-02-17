@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kelgors/cmc-cached-proxy"
+  },
   "scripts": {
     "start": "node server/index.js"
   },
-  "author": "",
+  "author": "Kelgors",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.21.1",
