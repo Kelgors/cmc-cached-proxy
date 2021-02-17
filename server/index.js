@@ -29,7 +29,7 @@ app.get('/quotes/latest.:format', function (req, res) {
   if (symbols.trim().length > 0) {
     query.whereIn('symbol', symbols.trim().split(','));
   }
-  query.limit(Math.min(limit, 200)).then(function (result) {
+  query.orderBy('cmc_rank', 'asc').limit(Math.min(limit, 200)).then(function (result) {
     res.setHeader('Content-Type', transformers[format].contentType);
     res.send(transformers[format].format(result));
     res.end();
