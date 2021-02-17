@@ -1,6 +1,6 @@
 # CoinMarketCap Quote Proxy
 
-Proxy for cryptocurrencies prices [https://kelgors-cmc-proxy.herokuapp.com/](Public API)
+Proxy for cryptocurrencies prices [Public API](https://kelgors-cmc-proxy.herokuapp.com/)
 The purpose is to give cryptocurrencies prices easily (without the necessity to have exact prices). My first usage was to use it for my Excel sheet to automatically update price table but i can be used for any application.<br />
 You can add coin from the task initialize_quotes or by adding them from the admin api.
 
