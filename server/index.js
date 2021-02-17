@@ -17,9 +17,28 @@ app.use(rateLimit({
 }));
 
 app.get('/', function (req, res) {
-  res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.send(`CoinMarketCap Cached-Api<br />Prices: update every 30min<br />List 200 first digital assets by marketcap<br />Rate Limit: 10 requests every 5min<br />Available format: csv,json<br />Created by: Kelgors<br /><br />Route: <a href="/quotes/latest.json">/quotes/latest.json</a>`);
-  res.end();
+  knex('quotes').select('symbol', 'name')
+    .orderBy('cmc_rank', 'asc')
+    .then(function (rows) {
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      res.send(`<h1>CoinMarketCap Cached-Api</h1><br />
+Prices: update every 30min<br />
+Rate Limit: 10 requests every 5min<br />
+Available format: csv,json<br />
+Created by: Kelgors<br /><br />
+API Quotes: <a href="/quotes/latest.json">/quotes/latest.json</a><br /><br />
+<h3>Coin list</h3>
+<ul>
+${rows.map(({ symbol, name }) => `<li>${name} (${symbol})</li>`).join('\n')}
+</ul>
+`);
+      res.end();
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('An error occured');
+      res.end();
+    });
 });
 
 app.get('/quotes/latest.:format', function (req, res) {
