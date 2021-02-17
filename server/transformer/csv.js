@@ -1,5 +1,5 @@
 function formatNumber(number) {
-  return (number || 0).toString().split('.').join(',');
+  return `"${(number || 0).toString().split('.').join(',')}"`;
 }
 
 module.exports = {
