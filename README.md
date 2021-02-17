@@ -64,8 +64,11 @@ You can add coin from the task initialize_quotes or by adding them from the admi
 # Admin routes
 
 `GET /admin/quotes` list all cryptocurrencies
+
 `POST /admin/quotes` Create a new cryptocurrency
+
 `GET /admin/quotes/:id` show a cryptocurrency by id
+
 `DELETE /admin/quotes/:id` Delete one cryptocurrencies by id
 
 `GET /admin/quotes/cmc?symbol=BTC` Display available cryptocurrencies with the given symbol directly from CoinMarketCap (use api credits)
