@@ -16,7 +16,7 @@ app.get('/', function (req, res) {
     .then(function (rows) {
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
       res.send(`<h1>CoinMarketCap Cached-Api</h1><br />
-Prices: update every 30min<br />
+Prices: update every 20min<br />
 Rate Limit: 10 requests every 5min<br />
 Available format: csv,json<br />
 Sources: <a href="https://github.com/Kelgors/cmc-cached-proxy" target="_blank" rel="noopener noreferrer">GitHub</a>
