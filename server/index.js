@@ -27,10 +27,10 @@ Rate Limit: 10 requests every 5min<br />
 Available format: csv,json<br />
 Created by: Kelgors<br /><br />
 API Quotes: <a href="/quotes/latest.json">/quotes/latest.json</a><br /><br />
-<h3>Coin list</h3>
-<ul>
+<h3>Coin list (${rows.length})</h3>
+<ol>
 ${rows.map(({ symbol, name }) => `<li>${name} (${symbol})</li>`).join('\n')}
-</ul>
+</ol>
 `);
       res.end();
     })
