@@ -8,6 +8,7 @@ knex('quotes').select('symbol')
   })
   .then(function (symbols) {
     // fetch
+    console.info('Fetching quotes');
     return axios.get('https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest', {
       params: {
         symbol: symbols,
@@ -20,18 +21,20 @@ knex('quotes').select('symbol')
     });
   })
   .then(function (response) {
+    console.info('Mapping quotes');
     return Object.values(response.data.data).map(function (item) {
       const { id, name, symbol, slug, circulating_supply, total_supply, max_supply, num_market_pairs, cmc_rank } = item;
-      const { price, volume_24h, percent_change_1h, percent_change_24h, percent_change_7d, percent_change_30d, market_cap } = item.quote[OUTPUT_CURRENCY];
+      const { price, volume_24h, percent_change_1h, percent_change_24h, percent_change_7d, percent_change_30d, market_cap, last_updated } = item.quote[OUTPUT_CURRENCY];
       return {
         // basic fields
         id, name, symbol, slug, circulating_supply, total_supply, max_supply, num_market_pairs, cmc_rank,
         // price fields
-        price, volume_24h, percent_change_1h, percent_change_24h, percent_change_7d, percent_change_30d, market_cap
+        price, volume_24h, percent_change_1h, percent_change_24h, percent_change_7d, percent_change_30d, market_cap, last_updated
       }
     });
   })
   .then(function (quotes) {
+    console.info('Inserting quotes');
     return knex('quotes').insert(quotes)
       .onConflict('id')
       .merge();
