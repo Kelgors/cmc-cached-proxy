@@ -4,6 +4,8 @@ Proxy for cryptocurrencies prices [Public API](https://kelgors-cmc-proxy.herokua
 The purpose is to give cryptocurrencies prices easily (without the necessity to have exact prices). My first usage was to use it for my Excel sheet to automatically update price table but i can be used for any application.<br />
 You can add coin from the task initialize_quotes or by adding them from the admin api.
 
+If you need more, please use the [CoinMarketCap API](https://coinmarketcap.com/api) directly 
+
 ## Scripts
 
 `npm start` start the api server.
@@ -72,3 +74,11 @@ You can add coin from the task initialize_quotes or by adding them from the admi
 `DELETE /admin/quotes/:id` Delete one cryptocurrencies by id
 
 `GET /admin/quotes/cmc?symbol=BTC` Display available cryptocurrencies with the given symbol directly from CoinMarketCap (use api credits)
+
+
+## Donations
+
+Donations are appreciated
+
+- LTC: ltc1qg3qvxm3j2hcwraf3dkahwjqdx8t803uejf5y9n
+- DOGE: DAMtNpASBe7HzkQ5JvC7GTYBs1F1qa8mgi
