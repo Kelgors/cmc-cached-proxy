@@ -27,7 +27,7 @@ Donations:
 </ul>
 <br /><br />
 API Quotes: <a href="/quotes/latest.json">/quotes/latest.json</a><br /><br />
-<h3>Coin list (${rows.length})</h3>
+<h3>Coin list (${rows.length}/400)</h3>
 <ol>
 ${rows.map(({ symbol, name }) => `<li>${name} (${symbol})</li>`).join('\n')}
 </ol>

@@ -74,16 +74,26 @@ router.get('/:id', function (req, res) {
 // Create
 router.post('/', function (req, res) {
   const row = pick(req.body, [ 'id', 'name', 'slug', 'symbol' ]);
-  return knex('quotes').insert(row)
-    .returning('*')
-    .then(function ([ row ]) {
-      res.setHeader('Content-Type', 'application/json; charset=utf-8');
-      res.send(JSON.stringify({ data: row }));
-      res.end();
+  return knex('quotes').count()
+    .then(function ([ { count } ]) {
+      console.info(`Coins: ${count}/400`);
+      if (count >= 400) {
+        res.setHeader('Content-Type', 'application/json; charset=utf-8');
+        res.send('{"data":null,"success":false,"message":"Too much coins. 400 coins limit reached"}');
+        res.end();
+      }
+      return knex('quotes').insert(row)
+        .returning('*')
+        .then(function ([ row ]) {
+          res.setHeader('Content-Type', 'application/json; charset=utf-8');
+          res.send(JSON.stringify({ data: row }));
+          res.end();
+        })
+        .catch(function (err) {
+          res.end(err.message);
+        });
     })
-    .catch(function (err) {
-      res.end(err.message);
-    });
+
 });
 
 // Delete
