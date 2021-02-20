@@ -10,7 +10,7 @@ const ADMIN_API_KEYS = process.env.ADMIN_API_KEYS.split(',');
 
 router.use(express.json());
 router.use(function (req, res, next) {
-  const apikey = req.headers['x-api-key'] || req.query['apikey'];
+  const apikey = req.headers['x-api-key'];
   if (ADMIN_API_KEYS.includes(apikey)) {
     next();
   } else {

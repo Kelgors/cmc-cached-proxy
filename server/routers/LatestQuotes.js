@@ -1,12 +1,24 @@
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const transformers = require('../transformer');
+const cors = require('cors');
 const router = express.Router();
 
-router.use(rateLimit({
+const ADMIN_API_KEYS = process.env.ADMIN_API_KEYS.split(',');
+const limiter = rateLimit({
   windowMs: 5 * 60 * 1000, // 5 minutes
   max: 10 // limit each IP to 5 requests per windowMs
-}));
+});
+
+router.use(cors());
+router.use(function (req, res, next) {
+  const apikey = req.headers['x-api-key'] || req.query['apikey'];
+  if (ADMIN_API_KEYS.includes(apikey)) {
+    next();
+  } else {
+    return limiter(req, res, next);
+  }
+});
 
 router.get('/quotes/latest.:format', function (req, res) {
   const { symbols = '', limit = '200' } = req.query;
