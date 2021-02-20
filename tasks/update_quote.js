@@ -9,7 +9,7 @@ knex('quotes').select('id')
   .then(function (ids) {
     // fetch
     console.info('Fetching quotes');
-    return axios.get('https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest', {
+    return axios.get(`${process.env.CMC_HOST}/v1/cryptocurrency/quotes/latest`, {
       params: {
         id: ids,
         convert: 'USD',

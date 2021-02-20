@@ -4,9 +4,9 @@ const axios = require('axios');
 console.info('Fetch data from cmc');
 Promise.resolve()
 .then(function () {
-  return axios.get('https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest', {
+  return axios.get(`${process.env.CMC_HOST}/v1/cryptocurrency/listings/latest`, {
     params: {
-      limit: process.env.MARKET_DEPTH || '200',
+      limit: process.env.MARKET_DEPTH || '100',
       convert: 'USD',
       aux: 'num_market_pairs,cmc_rank,max_supply,circulating_supply,total_supply'
     },
