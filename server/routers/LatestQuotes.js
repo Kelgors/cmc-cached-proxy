@@ -15,12 +15,16 @@ router.get('/quotes/latest.:format', function (req, res) {
   if (symbols.trim().length > 0) {
     query.whereIn('symbol', symbols.trim().split(','));
   }
-  query.orderBy('cmc_rank', 'asc').limit(Math.min(limit, 200)).then(function (result) {
+  query.orderBy('cmc_rank', 'asc').limit(Math.min(limit, 200))
+  .then(function (result) {
+    return transformers[format].format(result);
+  }).then(function (result) {
     res.setHeader('Content-Type', transformers[format].contentType);
-    res.send(transformers[format].format(result));
+    res.send(result);
     res.end();
   })
   .catch(function (err) {
+    console.dir(err);
     res.send(err);
     res.end();
   });

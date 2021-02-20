@@ -9,6 +9,6 @@ module.exports = {
       row.icon = `https://s2.coinmarketcap.com/static/img/coins/64x64/${row.id}.png`;
       return row;
     });
-    return JSON.stringify(rows, null, 2);
+    return Promise.resolve(JSON.stringify(rows, null, 2));
   }
 };
