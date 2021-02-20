@@ -33,13 +33,16 @@ function formatNumber(number) {
 
 module.exports = {
   contentType: 'text/csv; charset=utf-8',
-  format(rows) {
+  format(rows, { fields, separator }) {
+    const CSV_FIELDS = Array.isArray(fields) && fields.length > 0
+      ? fields
+      : COLUMNS;
     return new Promise(function (resolve, reject) {
-      const stringifier = stringify({ delimiter: ',' });
+      const stringifier = stringify({ delimiter: separator || ',' });
       const data = [];
-      stringifier.write(COLUMNS);
+      stringifier.write(CSV_FIELDS);
       rows.forEach(function (row) {
-        stringifier.write(COLUMNS.map(function (column) {
+        stringifier.write(CSV_FIELDS.map(function (column) {
           if (DECIMAL_NUMBERS.includes(column)) {
             return formatNumber(row[column]);
           }

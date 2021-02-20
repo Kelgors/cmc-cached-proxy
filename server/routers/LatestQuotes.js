@@ -21,7 +21,8 @@ router.use(function (req, res, next) {
 });
 
 router.get('/quotes/latest.:format', function (req, res) {
-  const { symbols = '', limit = '200' } = req.query;
+  const { symbols = '', limit = '200', fields, pretty, separator } = req.query;
+  console.log(fields);
   const { format = 'json' } = req.params;
   let query = knex('quotes').select()
   if (symbols.trim().length > 0) {
@@ -29,7 +30,11 @@ router.get('/quotes/latest.:format', function (req, res) {
   }
   query.orderBy('cmc_rank', 'asc').limit(Math.min(limit, 200))
   .then(function (result) {
-    return transformers[format].format(result);
+    return transformers[format].format(result, {
+      fields: typeof fields === 'string' && fields.length > 0 ? fields.split(',') : [],
+      pretty: pretty === '1',
+      separator,
+    });
   }).then(function (result) {
     res.setHeader('Content-Type', transformers[format].contentType);
     res.send(result);
