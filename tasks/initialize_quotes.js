@@ -6,7 +6,7 @@ Promise.resolve()
 .then(function () {
   return axios.get(`${process.env.CMC_HOST}/v1/cryptocurrency/listings/latest`, {
     params: {
-      limit: process.env.MARKET_DEPTH || '100',
+      limit: process.env.MARKET_DEPTH,
       convert: 'USD',
       aux: 'num_market_pairs,cmc_rank,max_supply,circulating_supply,total_supply'
     },
@@ -16,7 +16,7 @@ Promise.resolve()
   });
 })
 .then(function (response) {
-  console.info('Parsing data', response.data.data);
+  console.info('Parsing data');
   return response.data.data.map(function (item) {
     const { id, name, symbol, slug, cmc_rank, num_market_pairs, circulating_supply, total_supply, max_supply, last_updated } = item;
     return { id, name, symbol, slug, cmc_rank, num_market_pairs, circulating_supply, total_supply, max_supply, last_updated };

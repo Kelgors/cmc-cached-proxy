@@ -2,7 +2,9 @@ const knex = require('knex')(require('../knexfile'));
 const axios = require('axios');
 const OUTPUT_CURRENCY = 'USD';
 
-knex('quotes').select('id')
+knex('quotes').select([ 'id', 'cmc_rank' ])
+  .orderBy('cmc_rank', 'asc')
+  .limit(process.env.MAX_COIN)
   .then(function (rows) {
     return rows.map(({ id }) => id).join(',');
   })

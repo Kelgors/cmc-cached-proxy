@@ -13,6 +13,7 @@ app.use(helmet());
 app.get('/', function (req, res) {
   knex('quotes').select('symbol', 'name')
     .orderBy('cmc_rank', 'asc')
+    .limit(process.env.MAX_COIN)
     .then(function (rows) {
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
       res.send(`<h1>CoinMarketCap Cached-Api</h1><br />
@@ -29,7 +30,8 @@ Sources: <a href="https://github.com/Kelgors/cmc-cached-proxy" target="_blank" r
 </div>
 <h3>Routes</h3>
 <ul>
-  <li>Quotes: <a href="/quotes/latest.json">/quotes/latest.json</a></li>
+  <li>JSON: <a href="/quotes/latest.json">/quotes/latest.json</a></li>
+  <li>CSV: <a href="/quotes/latest.csv">/quotes/latest.csv</a></li>
 </ul>
 <div>
   <h3>Query parameters</h3>
@@ -73,10 +75,10 @@ Sources: <a href="https://github.com/Kelgors/cmc-cached-proxy" target="_blank" r
   <ul>
   <li><a href="/quotes/latest.json?pretty=1" target="_blank" rel="noopener noreferrer">Pretty json with all information</a></li>
   <li><a href="/quotes/latest.json?pretty=1&fields=id,name,symbol,slug,description,price" target="_blank" rel="noopener noreferrer">Pretty json with coin info</a></li>
-  <li><a href="/quotes/latest.json?separator=%2C&fields=id,name,symbol,slug,description,price" target="_blank" rel="noopener noreferrer">CSV separator by comma with basic coin info</a></li>
+  <li><a href="/quotes/latest.csv?separator=%2C&fields=id,name,symbol,tags,price" target="_blank" rel="noopener noreferrer">CSV separator by comma with basic coin info</a></li>
 </ul>
 </div>
-<h3>Coin list (${rows.length}/400)</h3>
+<h3>Coin list (${rows.length}/${process.env.MAX_COIN})</h3>
 <ol>
 ${rows.map(({ symbol, name }) => `<li>${name} (${symbol})</li>`).join('\n')}
 </ol>

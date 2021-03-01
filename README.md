@@ -1,18 +1,31 @@
 # CoinMarketCap Quote Proxy
 
-Proxy for cryptocurrencies prices [Public API](https://kelgors-cmc-proxy.herokuapp.com/)
-The purpose is to give cryptocurrencies prices easily (without the necessity to have exact prices). My first usage was to use it for my Excel sheet to automatically update price table but i can be used for any application.<br />
+Proxy for cryptocurrencies prices [Public API](http://cmc-proxy.kelgors.me/)
+The purpose is to give cryptocurrencies prices easily (without the necessity to have exact prices). My first usage was to use it with my Excel sheet to automatically update price tables but it can be used for any application.<br />
 You can add coin from the task initialize_quotes or by adding them from the admin api.
 
 If you need more, please use the [CoinMarketCap API](https://coinmarketcap.com/api) directly 
+
+## ENV
+
+|Name|Description|
+|--|--|
+|ADMIN_API_KEYS|Comma separated string values|
+|CMC_APIKEY|CoinMarketCap api key|
+|CMC_HOST|Endpoint to CoinMarketCap (ie https://pro-api.coinmarketcap.com)|
+|DATABASE_URL|Postgresql database url|
+|MARKET_DEPTH|Initial count of coins fetched with tasks/initialize_quotes.js|
+|MAX_COIN|Max number of coins that will be updated and delivered by the api|
 
 ## Scripts
 
 `npm start` start the api server.
 
-`node tasks/initialize_quotes.js` import the 200 first coins from CoinMarketCap
+`node tasks/initialize_quotes.js` import the {MARKET_DEPTH} first coins from CoinMarketCap
 
-`node tasks/update_quote.js` should be executed some times (every 30 min) to update price table. Use api credits.
+`node tasks/update_quote.js` should be executed some times (every 20 min) to update price table. Use 1 api credit by 100 coins.
+
+`node tasks/update_meta.js` should be executed once a day or less
 
 ## Public route
 
